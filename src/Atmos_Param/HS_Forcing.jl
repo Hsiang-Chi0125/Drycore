@@ -65,7 +65,15 @@ function Newtonian_Damping!(atmo_data::Atmo_Data, sinθ::Array{Float64,1}, grid_
     grid_p_norm .= grid_p_full[:,:,k]/p_ref
 
     grid_t_eq[:,:,k] .= (t_zero .- ΔT_y*sinθ2_2d  .- Δθ_z*cosθ2_2d.*log.(grid_p_norm)) .*  grid_p_norm.^kappa
-    grid_t_eq[:,:,k] .= max.( t_strat, grid_t_eq[:,:,k])
+    
+  # modified from if to else
+  if k > 15
+    grid_t_eq[:,1:54,k] .= max.( t_strat, grid_t_eq[:,1:54,k])
+    grid_t_eq[:,55:64,k] .= max.( t_strat, grid_t_eq[:,55:64,k]) .+ 10
+  else
+    grid_t_eq[:,:,k] .= max.( t_strat, grid_t_eq[:,:,k]) # this is the original code
+  end
+
   end
 
   # #######

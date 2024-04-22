@@ -206,12 +206,18 @@ function Sigma_Zonal_Mean_Pcolormesh(output_manager::Output_Manager, save_file_p
     
     X,Y = repeat(θc_deg, 1, nd), repeat(σc, 1, nθ)'
 
-    t_zonal_mean, u_zonal_mean, v_zonal_mean = output_manager.t_zonal_mean, output_manager.u_zonal_mean, output_manager.v_zonal_mean
+    t_zonal_mean, t_eq_zonal_mean, u_zonal_mean, v_zonal_mean = output_manager.t_zonal_mean, output_manager.t_eq_zonal_mean, output_manager.u_zonal_mean, output_manager.v_zonal_mean
    
     PyPlot.pcolormesh(X, Y, t_zonal_mean, shading= "gouraud", cmap="viridis")
     PyPlot.gca().invert_yaxis()
     PyPlot.colorbar()
     PyPlot.savefig(save_file_pref * "_T.png")
+    PyPlot.close("all")
+
+    PyPlot.pcolormesh(X, Y, t_eq_zonal_mean, shading= "gouraud", cmap="viridis")
+    PyPlot.gca().invert_yaxis()
+    PyPlot.colorbar()
+    PyPlot.savefig(save_file_pref * "_Teq.png")
     PyPlot.close("all")
 
     PyPlot.pcolormesh(X, Y, u_zonal_mean, shading= "gouraud", cmap="viridis")

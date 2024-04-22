@@ -1,0 +1,25 @@
+ERROR: LoadError: BoundsError: attempt to access 128×64×20 Array{Float64, 3} at index [1:246, 1:64, 1]
+Stacktrace:
+  [1] throw_boundserror(A::Array{Float64, 3}, I::Tuple{UnitRange{Int64}, Base.Slice{Base.OneTo{Int64}}, Int64})
+    @ Base ./abstractarray.jl:703
+  [2] checkbounds
+    @ ./abstractarray.jl:668 [inlined]
+  [3] view
+    @ ./subarray.jl:177 [inlined]
+  [4] maybeview
+    @ ./views.jl:146 [inlined]
+  [5] dotview
+    @ ./broadcast.jl:1201 [inlined]
+  [6] Newtonian_Damping!(atmo_data::Atmo_Data, sinθ::Vector{Float64}, grid_p_half::Array{Float64, 3}, grid_p_full::Array{Float64, 3}, grid_t::Array{Float64, 3}, grid_t_eq::Array{Float64, 3}, grid_δt::Array{Float64, 3}, σ_b::Float64, k_a::Float64, k_s::Float64, ΔT_y::Float64, Δθ_z::Float64)
+    @ JGCM ~/IdealizedSpectralGCM.jl/src/Atmos_Param/HS_Forcing.jl:71
+  [7] HS_Forcing!(atmo_data::Atmo_Data, Δt::Int64, sinθ::Vector{Float64}, grid_u::Array{Float64, 3}, grid_v::Array{Float64, 3}, grid_p_half::Array{Float64, 3}, grid_p_full::Array{Float64, 3}, grid_t::Array{Float64, 3}, grid_δu::Array{Float64, 3}, grid_δv::Array{Float64, 3}, grid_t_eq::Array{Float64, 3}, grid_δt::Array{Float64, 3}, physcis_params::Dict{String, Float64})
+    @ JGCM ~/IdealizedSpectralGCM.jl/src/Atmos_Param/HS_Forcing.jl:31
+  [8] Spectral_Dynamics_Physics!
+    @ ~/IdealizedSpectralGCM.jl/src/Atmos_Spectral/Spectral_Dynamics.jl:463 [inlined]
+  [9] Atmosphere_Update!(mesh::Spectral_Spherical_Mesh, atmo_data::Atmo_Data, vert_coord::Vert_Coordinate, semi_implicit::Semi_Implicit_Solver, dyn_data::Dyn_Data, physcis_params::Dict{String, Float64})
+    @ JGCM ~/IdealizedSpectralGCM.jl/src/Atmos_Spectral/Spectral_Dynamics.jl:474
+ [10] Atmos_Spectral_Dynamics_Main(physcis_params::Dict{String, Float64}, end_day::Int64, spinup_day::Int64)
+    @ Main ~/IdealizedSpectralGCM.jl/exp/HSt42/HS.jl:73
+ [11] top-level scope
+    @ ~/IdealizedSpectralGCM.jl/exp/HSt42/Run_HS.jl:13
+in expression starting at /work/home/YCL.pamip_data/IdealizedSpectralGCM.jl/exp/HSt42/Run_HS.jl:13
